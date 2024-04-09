@@ -3,9 +3,13 @@ import dotenv from 'dotenv'
 import AuthRouter from './Routers/AuthRouter.js';
 import mongoose from 'mongoose';
 import UserModel from './Models/UserModel.js';
+import { errorJson, successJson } from './Controllers/Utils/JsonRes.js';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+app.use(cookieParser());
 dotenv.config();
 
 const port = process.env.PORT;
@@ -30,3 +34,11 @@ app.get('/test', async (req, res)=>{
     // })
     res.json(data);
 });
+
+app.get('/success', async (req, res) => {
+    res.json(successJson('validated',[{login: 'success'}]));
+})
+
+app.get('/error', async (req, res) => {
+    res.json(errorJson('validate_error',[{password: 'wrong password'}]));
+})
