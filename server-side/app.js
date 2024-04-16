@@ -5,11 +5,13 @@ import mongoose from 'mongoose';
 import UserModel from './Models/UserModel.js';
 import { errorJson, successJson } from './Controllers/Utils/JsonRes.js';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
+app.use(cors({origin:"http://localhost:5173", credentials: true}));
 dotenv.config();
 
 const port = process.env.PORT;

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import AuthComponent from "./AuthComponent"
 
 const Master = (props) => {
   return (
@@ -14,14 +15,7 @@ const Master = (props) => {
             </div> 
             </div>
             <div className="col-4">
-            <div className="bg-card p-3">
-                <Link to="/login" className="btn btn-primary">
-                Login
-                </Link>
-                <Link to="/register" className="btn btn-primary">
-                Register
-                </Link>
-            </div>
+            <AuthComponent />
             <div className="bg-card p-3 mt-4">
                 <h5 className="text-primary">Tags</h5>
                 <span className="btn btn-sm btn-dark mt-1">နည်းလမ်းများ </span>
