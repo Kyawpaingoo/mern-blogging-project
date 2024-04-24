@@ -4,11 +4,13 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
 import UserModel from '../Models/UserModel.js';
+import { json } from 'express';
 
 export const login = async (req, res) =>{
     const {name, email, password} = req.body;
+   console.log(email)
     const findUser = await UserModel.findOne({email});
-
+    
     if(!findUser){
         return res.json(errorJson("email not found", null))
     }
@@ -52,4 +54,20 @@ export const register = async (req, res) => {
     }).catch((e)=>{
         return res.json(errorJson("validate_error", e))
     })
+}
+
+export const checkAuth = (req, res) =>{
+    const {access_token} = req.cookies;
+    const jwt_secrect = process.env.JWT_TOKEN;
+    jwt.verify(access_token, jwt_secrect, (error,data)=>{
+        if(error){
+            return res.json('not_auth');
+        }
+        return res.json(data);
+    })
+}
+
+export const logout = (req, res)=>{
+    res.clearCookie("access_token");
+    res.json("success");
 }

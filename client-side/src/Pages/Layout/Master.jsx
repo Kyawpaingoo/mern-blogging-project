@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom"
 import AuthComponent from "./AuthComponent"
+import TagComponents from "./TagComponents"
 
 const Master = (props) => {
   return (
@@ -16,30 +16,8 @@ const Master = (props) => {
             </div>
             <div className="col-4">
             <AuthComponent />
-            <div className="bg-card p-3 mt-4">
-                <h5 className="text-primary">Tags</h5>
-                <span className="btn btn-sm btn-dark mt-1">နည်းလမ်းများ </span>
-                <span className="btn btn-sm btn-dark mt-1">Tutorial </span>
-                <span className="btn btn-sm btn-dark mt-1">Tips </span>
-                <span className="btn btn-sm btn-dark mt-1">Summernote </span>
-                <span className="btn btn-sm btn-dark mt-1">Tricks </span>
-                <span className="btn btn-sm btn-dark mt-1">web dev </span>
-                <span className="btn btn-sm btn-dark mt-1">web design </span>
-                <span className="btn btn-sm btn-dark mt-1">blogs </span>
-                <span className="btn btn-sm btn-dark mt-1">articles </span>
-            </div>
-            <div className="bg-card p-3 mt-4">
-                <h5 className="text-primary">Programming</h5>
-                <span className="btn btn-sm btn-dark mt-1">PHP </span>
-                <span className="btn btn-sm btn-dark mt-1">Laravel </span>
-                <span className="btn btn-sm btn-dark mt-1">React JS </span>
-                <span className="btn btn-sm btn-dark mt-1">VueJS </span>
-                <span className="btn btn-sm btn-dark mt-1">Jquery </span>
-                <span className="btn btn-sm btn-dark mt-1">Bootstrap </span>
-                <span className="btn btn-sm btn-dark mt-1">web design </span>
-                <span className="btn btn-sm btn-dark mt-1">blogs </span>
-                <span className="btn btn-sm btn-dark mt-1">articles </span>
-            </div>
+            
+            <TagComponents />
             <div className="bg-card p-3 mt-4">
                 <h5 className="text-primary"> Top Trending Articles</h5>
                 <div className="row">

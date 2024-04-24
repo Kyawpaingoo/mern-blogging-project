@@ -1,9 +1,19 @@
 import { useContext } from "react"
-import { Link } from "react-router-dom"
+import { Link, redirect, useNavigate } from "react-router-dom"
 import AuthContext from "../../Context/AuthContext"
+import axios from "axios"
 
 const AuthComponent = () => {
     const {authUser, setAuthUser} = useContext(AuthContext)
+    const navigate = useNavigate();
+    const logout = ()=>{
+        axios.post('/logout').then((d)=>{
+            if(d.data=='success'){
+                setAuthUser(false);
+                navigate('/login');
+            }
+        })
+    }
   return (
     <div className="bg-card p-3">
         {!authUser && (
@@ -19,12 +29,12 @@ const AuthComponent = () => {
 
         { authUser && (
             <>
-                <Link to="/login" className="btn btn-primary">
-                    Profile
+                <Link to="/profile" className="btn btn-primary">
+                    {authUser.name}
                 </Link>
-                <Link to="/register" className="btn btn-primary">
+                <button onClick={logout} className="btn btn-primary">
                     Logout
-                </Link>
+                </button>
             </>
             )
         }

@@ -6,10 +6,16 @@ import UserModel from './Models/UserModel.js';
 import { errorJson, successJson } from './Controllers/Utils/JsonRes.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import ArticleRouter from './Routers/ArticleRouter.js';
+import fileUpload from 'express-fileupload';
+import ProfileRouter from './Routers/ProfileRouter.js';
+import DataRouter from './Routers/DataRouter.js';
 
 const app = express();
+app.use(fileUpload());
+app.use(express.static('public'))
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+//app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(cors({origin:"http://localhost:5173", credentials: true}));
 dotenv.config();
@@ -22,20 +28,9 @@ mongoose.connect(mongodb).then(()=>{
 })
 
 app.use('/api', AuthRouter);
-
-app.listen(port, ()=> {
-    console.log(`server running on: ${port}`);
-})
-
-app.get('/test', async (req, res)=>{
-    const data = await UserModel.find({});
-    // await UserModel.create({
-    //     name: 'User One',
-    //     email: 'userone@gmail.com',
-    //     password: 'userone'
-    // })
-    res.json(data);
-});
+app.use('/api/auth/article', ArticleRouter);
+app.use('/api/auth', ProfileRouter);
+app.use('/api/', DataRouter);
 
 app.get('/success', async (req, res) => {
     res.json(successJson('validated',[{login: 'success'}]));
@@ -44,3 +39,10 @@ app.get('/success', async (req, res) => {
 app.get('/error', async (req, res) => {
     res.json(errorJson('validate_error',[{password: 'wrong password'}]));
 })
+
+
+app.listen(port, ()=> {
+    console.log(`server running on: ${port}`);
+})
+
+

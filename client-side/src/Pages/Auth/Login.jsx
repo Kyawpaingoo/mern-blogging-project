@@ -46,7 +46,7 @@ const Login = () => {
         </div>
         <button className="btn btn-primary" onClick={login} disabled={loader}>
           {loader && <ButtonLoader /> }
-          Login
+          <span className="ms-2">Login</span>
         </button>
         
     </Master>
