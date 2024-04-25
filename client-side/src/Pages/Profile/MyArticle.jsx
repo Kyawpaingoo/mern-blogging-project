@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
-import ButtonLoader from "../../Components/ButtonLoader.";
 import { Link } from "react-router-dom"
 import PageLoader from "../../Components/PageLoader";
 

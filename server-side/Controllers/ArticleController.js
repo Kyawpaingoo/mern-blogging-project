@@ -25,9 +25,8 @@ export const getTagLanguage = async (req, res)=>{
 export const all = async (req, res)=>{
    const {page} = req.query;
    const limit = 5;
-   
-   const article = await paginate(ArticleModel, page, limit);
-   res.json(article);
+   const result = await paginate(ArticleModel, page, limit);
+   res.json(result);
 }
 
 export const store = async (req, res)=>{

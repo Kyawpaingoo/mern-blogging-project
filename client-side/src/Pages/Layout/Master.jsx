@@ -1,5 +1,7 @@
-import AuthComponent from "./AuthComponent"
-import TagComponents from "./TagComponents"
+import AuthComponent from "./AuthComponent.jsx"
+import MostLoveArticle from "./MostLoveArticle.jsx"
+import MostTrendingArticle from "./MostTrendingArticle.jsx"
+import TagComponents from "./TagComponents.jsx"
 
 const Master = (props) => {
   return (
@@ -18,88 +20,9 @@ const Master = (props) => {
             <AuthComponent />
             
             <TagComponents />
-            <div className="bg-card p-3 mt-4">
-                <h5 className="text-primary"> Top Trending Articles</h5>
-                <div className="row">
-                <div className="col-6">
-                    <div className="bg-dark rounded">
-                    <img
-                        src="https://toka.b-cdn.net/wp-content/uploads/2021/11/3d-aesthetics.png"
-                        className="w-100 rounded"
-                    />
-                    <p className="text-white text-center p-2">What is PHP</p>
-                    </div>
-                </div>
-                <div className="col-6">
-                    <div className="bg-dark rounded">
-                    <img
-                        src="https://toka.b-cdn.net/wp-content/uploads/2022/01/black-man-looking-stock-market-exchange-information-computer-crypto-currency.png"
-                        className="w-100 rounded"
-                    />
-                    <p className="text-white text-center p-2">What is PHP</p>
-                    </div>
-                </div>
-                <div className="col-6">
-                    <div className="bg-dark rounded">
-                    <img
-                        src="https://toka.b-cdn.net/wp-content/uploads/2022/01/black-man-looking-stock-market-exchange-information-computer-crypto-currency.png"
-                        className="w-100 rounded"
-                    />
-                    <p className="text-white text-center p-2">What is PHP</p>
-                    </div>
-                </div>
-                <div className="col-6">
-                    <div className="bg-dark rounded">
-                    <img
-                        src="https://toka.b-cdn.net/wp-content/uploads/2021/11/3d-aesthetics.png"
-                        className="w-100 rounded"
-                    />
-                    <p className="text-white text-center p-2">What is PHP</p>
-                    </div>
-                </div>
-                </div>
-            </div>
-            <div className="bg-card p-3 mt-4">
-                <h5 className="text-primary"> Most Love Articles</h5>
-                <div className="row">
-                <div className="col-6">
-                    <div className="bg-dark rounded">
-                    <img
-                        src="https://toka.b-cdn.net/wp-content/uploads/2021/11/3d-aesthetics.png"
-                        className="w-100 rounded"
-                    />
-                    <p className="text-white text-center p-2">What is PHP</p>
-                    </div>
-                </div>
-                <div className="col-6">
-                    <div className="bg-dark rounded">
-                    <img
-                        src="https://toka.b-cdn.net/wp-content/uploads/2022/01/black-man-looking-stock-market-exchange-information-computer-crypto-currency.png"
-                        className="w-100 rounded"
-                    />
-                    <p className="text-white text-center p-2">What is PHP</p>
-                    </div>
-                </div>
-                <div className="col-6">
-                    <div className="bg-dark rounded">
-                    <img
-                        src="https://toka.b-cdn.net/wp-content/uploads/2022/01/black-man-looking-stock-market-exchange-information-computer-crypto-currency.png"
-                        className="w-100 rounded"
-                    />
-                    <p className="text-white text-center p-2">What is PHP</p>
-                    </div>
-                </div>
-                <div className="col-6">
-                    <div className="bg-dark rounded">
-                    <img
-                        src="https://toka.b-cdn.net/wp-content/uploads/2021/11/3d-aesthetics.png"
-                        className="w-100 rounded"
-                    />
-                    <p className="text-white text-center p-2">What is PHP</p>
-                    </div>
-                </div>
-                </div>
-            </div>
+            <MostTrendingArticle />
+            <MostLoveArticle />
+
             </div>
         </div>
         </div>

@@ -1,7 +1,6 @@
 export const paginate = async (model, page = 1, limit=5)=>{
     page = parseInt(page);
     limit = parseInt(limit);
-    //console.log(limit)
 
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;

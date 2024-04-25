@@ -32,7 +32,7 @@ export const register = async (req, res) => {
     const findUser = await UserModel.findOne({email});
 
     if(findUser) {
-        return res.json(errorJson("email exist", null))
+        return res.json(errorJson("Email exist", null))
     }
 
     validator.validateAll(req.body, {
@@ -47,10 +47,13 @@ export const register = async (req, res) => {
             email,
             password: hashPassword
         });
-        const jwt_secrect = process.env.JWT_TOKEN;
-        const access_token = jwt.sign({email, id:createdUser._id}, jwt_secrect)
-        res.cookie('access_token', access_token, {httpOnly: true});
-        return res.json(successJson('success'));
+        // const jwt_secrect = process.env.JWT_TOKEN;
+        // const access_token = jwt.sign({email, id:createdUser._id}, jwt_secrect)
+        // res.cookie('access_token', access_token, {httpOnly: true});
+        return res.json(successJson('success',{
+            id:createdUser._id,
+            name: createdUser.name
+        }));
     }).catch((e)=>{
         return res.json(errorJson("validate_error", e))
     })

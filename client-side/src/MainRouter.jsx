@@ -20,7 +20,7 @@ const MainRouter = () => {
               path='/register' 
                 element={
                   <RedirectAuth>
-                      <Login />
+                      <Register />
                   </RedirectAuth>
                   
                   } />
@@ -48,6 +48,7 @@ const MainRouter = () => {
                       </RedirectNotAuth>        
                     } 
               />
+              
         </Routes>
       </AuthContextProvider> 
         <ToastContainer />

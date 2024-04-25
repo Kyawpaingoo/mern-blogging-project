@@ -1,7 +1,20 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import Master from './Layout/Master'
+import axios from 'axios';
+import host from '../Data/Data.js';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
+    const [articles, setArticles] = useState([]);
+    useEffect(()=>{
+            const getFetchData =  async()=>{
+                await axios.get('get-HomeArticle').then(d=>{
+                    setArticles(d.data);
+                });
+            }
+        getFetchData();
+    },[]);
+    
   return (
     <Master>
         <div className="mt-4">
@@ -49,144 +62,46 @@ const Home = () => {
         </div>
         <div className="mt-4 blog-list">
             <div className="row p-0 m-0">
-                <div className="col-6  pl-0 mt-4">
-                    <div className="rounded bg-card">
-                    <img
-                        className="rounded"
-                        src="images/1.webp"
-                        style={{ width: "100%" }}
-                        alt=""
-                    />
-                    <div className="p-4 text-white">
-                        <h4 className="text-white">MERN Stack တစ်ယောက်ဖြစ်ဖို့ </h4>
-                        <div className="d-flex justify-content-between">
-                        <button className="btn btn-dark">
-                            <span className="text-success">
-                            <i className="bx bx-happy-heart-eyes" />
-                            </span>{" "}
-                            : 100
-                        </button>
-                        <button className="btn btn-dark">
-                            <span className="text-success">
-                            <i className="bx bx-heart" />
-                            </span>{" "}
-                            : 100
-                        </button>
-                        <button className="btn btn-dark">
-                            <span className="text-success">
-                            <i className="bx bx-message-square-dots" />
-                            </span>{" "}
-                            : 100
-                        </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="col-6  pl-0 mt-4">
-                    <div className="rounded bg-card">
-                    <img
-                        className="rounded"
-                        src="images/2.webp"
-                        style={{ width: "100%" }}
-                        alt=""
-                    />
-                    <div className="p-4 text-white">
-                        <h4 className="text-white">
-                        Laravel Developer တစ်ယောက်ဖြစ်ဖို့{" "}
-                        </h4>
-                        <div className="d-flex justify-content-between">
-                        <button className="btn btn-dark">
-                            <span className="text-success">
-                            <i className="bx bx-happy-heart-eyes" />
-                            </span>{" "}
-                            : 100
-                        </button>
-                        <button className="btn btn-dark">
-                            <span className="text-success">
-                            <i className="bx bx-heart" />
-                            </span>{" "}
-                            : 100
-                        </button>
-                        <button className="btn btn-dark">
-                            <span className="text-success">
-                            <i className="bx bx-message-square-dots" />
-                            </span>{" "}
-                            : 100
-                        </button>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <div className="col-6  pl-0 mt-4">
-                    <div className="rounded bg-card">
-                    <img
-                        className="rounded"
-                        src="images/3.webp"
-                        style={{ width: "100%" }}
-                        alt=""
-                    />
-                    <div className="p-4 text-white">
-                        <h4 className="text-white">
-                        Laravel Developer တစ်ယောက်ဖြစ်ဖို့{" "}
-                        </h4>
-                        <div className="d-flex justify-content-between">
-                        <button className="btn btn-dark">
-                            <span className="text-success">
-                            <i className="bx bx-happy-heart-eyes" />
-                            </span>{" "}
-                            : 100
-                        </button>
-                        <button className="btn btn-dark">
-                            <span className="text-success">
-                            <i className="bx bx-heart" />
-                            </span>{" "}
-                            : 100
-                        </button>
-                        <button className="btn btn-dark">
-                            <span className="text-success">
-                            <i className="bx bx-message-square-dots" />
-                            </span>{" "}
-                            : 100
-                        </button>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <div className="col-6  pl-0 mt-4">
-                    <div className="rounded bg-card">
-                    <img
-                        className="rounded"
-                        src="images/5.webp"
-                        style={{ width: "100%" }}
-                        alt=""
-                    />
-                    <div className="p-4 text-white">
-                        <h4 className="text-white">
-                        Laravel Developer တစ်ယောက်ဖြစ်ဖို့{" "}
-                        </h4>
-                        <div className="d-flex justify-content-between">
-                        <button className="btn btn-dark">
-                            <span className="text-success">
-                            <i className="bx bx-happy-heart-eyes" />
-                            </span>{" "}
-                            : 100
-                        </button>
-                        <button className="btn btn-dark">
-                            <span className="text-success">
-                            <i className="bx bx-heart" />
-                            </span>{" "}
-                            : 100
-                        </button>
-                        <button className="btn btn-dark">
-                            <span className="text-success">
-                            <i className="bx bx-message-square-dots" />
-                            </span>{" "}
-                            : 100
-                        </button>
-                        </div>
-                    </div>
-                    </div>
-                </div>
+                {
+                    articles.map((article)=>(
+                        <Link to={`/article/${article._id}`} key={article._id} className="col-6  pl-0 mt-4">
+                            <div className="rounded bg-card">
+                                <img
+                                    className="rounded"
+                                    src={`${host.host}/images/${article.image}`}
+                                    style={{ width: "100%" }}
+                                    alt=""
+                                />
+                                <div className="p-4 text-white">
+                                    <h4 className="text-white">{article.title}</h4>
+                                    <div className="d-flex justify-content-between">
+                                    <button className="btn btn-dark">
+                                        <span className="text-success">
+                                        <i className="bx bx-happy-heart-eyes" />
+                                        </span>{" "}
+                                        : {article.view_count}
+                                    </button>
+                                    <button className="btn btn-dark">
+                                        <span className="text-success">
+                                        <i className="bx bx-heart" />
+                                        </span>{" "}
+                                        : {article.like_count}
+                                    </button>
+                                    <button className="btn btn-dark">
+                                        <span className="text-success">
+                                        <i className="bx bx-message-square-dots" />
+                                        </span>{" "}
+                                        : {article.comment_count}
+                                    </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </Link>
+                    )
+                )
+                }
+                
+                
             </div>
         </div>
     </Master>
