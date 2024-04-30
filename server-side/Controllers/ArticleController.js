@@ -2,7 +2,7 @@ import TagModel from '../Models/TagModel.js';
 import LanguageModel from '../Models/LanguageModel.js';
 import ArticleModel from '../Models/ArticleModel.js';
 import slug from 'slug';
-import { paginate } from '../Helpers/paginate.js';
+import { paginateResult } from '../Helpers/paginate.js';
 
 export const getTagLanguage = async (req, res)=>{
     const tagData = await TagModel.find();
@@ -25,8 +25,28 @@ export const getTagLanguage = async (req, res)=>{
 export const all = async (req, res)=>{
    const {page} = req.query;
    const limit = 5;
-   const result = await paginate(ArticleModel, page, limit);
+   const sortField = '_id';
+   const sortOrder = -1;
+
+   const result = await paginateResult(ArticleModel, page, limit, sortField, sortOrder);
    res.json(result);
+}
+
+export const getArticleByUsername = async (req, res)=>{
+  const {page} = req.query;
+  const {name }= req.params;
+ 
+  const limit = 5;
+  const sortField = '_id';
+  const sortOrder = -1;
+
+  const queryBuilder = [];
+        if(name){
+            queryBuilder.push({"author": name});
+        } 
+
+  const result = await paginateResult(ArticleModel, page, limit, sortField, sortOrder, queryBuilder);
+  res.json(result);
 }
 
 export const store = async (req, res)=>{
@@ -65,6 +85,7 @@ export const store = async (req, res)=>{
         slug: slug(body.title),
         image: fileName,
         title: body.title,
+        author: body.author,
         description: body.description,
         tags: dataTags,
         languages: dataLanguage

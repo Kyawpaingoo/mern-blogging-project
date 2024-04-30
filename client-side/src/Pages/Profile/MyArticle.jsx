@@ -1,31 +1,34 @@
+import { useContext } from "react";
+import AuthContext from "../../Context/AuthContext.jsx"
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import { Link } from "react-router-dom"
-import PageLoader from "../../Components/PageLoader";
+import PageLoader from "../../Components/PageLoader.jsx";
+import Paginate from "../../Components/Paginate.jsx";
 
 const MyArticle = () => {
+    const {authUser, setAuthUser} = useContext(AuthContext);
     const [page, setPage] = useState(1);
     const [article, setArticle] = useState([]);
     const [loader, setLoader] = useState(true);
     const [totalPage, setTotalPage] = useState(null);
     const [count, setCount] = useState(0);
-
     useEffect(()=>{
         setLoader(true);
         const fetchArticleData = async()=>{
-            await axios.get('/auth/article?page='+page).then((d)=>{
+            await axios.get(`/auth/article/${authUser.name}?page=${page}`).then((d)=>{
                 setLoader(false);
-                setArticle(d.data.results);
-                setTotalPage(d.data.totalPage);
+                setArticle(d.data.docs);
+                setTotalPage(d.data.totalPages);
                 setCount(d.data.count);
             })
         }
         fetchArticleData();
-    },[page]);
+    },[authUser.name, page]);
   return (
     <div className="row mt-3">
         {
-            article.length <= count ? (
+            article.length > 0 ? (
                 loader ? (
                     <PageLoader />
                 ) : (
@@ -49,6 +52,10 @@ const MyArticle = () => {
                                                 <b className="mr-2">View: </b>
                                                 <span className="text-danger">{arr.view_count}</span>
                                             </div>
+                                            <div className="d-flex align-items-center">
+                                                <b className="mr-2">Author: </b>
+                                                <span className="text-light">{arr.author}</span>
+                                            </div>
                                         </div>
                                         <div className="col-12 my-4">
                                             <Link to="" className="btn btn-secondary mt-5">
@@ -71,20 +78,7 @@ const MyArticle = () => {
             )
         }
 
-        <div className="col-12 mt-3">
-            <div className="d-flex justify-content-center">
-                <button className="btn btn-primary" 
-                        onClick={()=>setPage(page-1)} disabled={page <= 1}
-                >
-                    Previous
-                </button>
-                <button className="btn btn-primary" 
-                        onClick={()=>setPage(page+1)} disabled={page >= totalPage}
-                >
-                    Next
-                </button>
-            </div>
-        </div>
+        <Paginate page={page} totalPage={totalPage} setPage={setPage} />
     </div>
   )
 }  

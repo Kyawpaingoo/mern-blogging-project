@@ -9,6 +9,8 @@ import Profile from './Pages/Profile.jsx'
 import RedirectNotAuth from './Pages/RouteMiddleware/RedirectNotAuth.jsx'
 import RedirectAuth from './Pages/RouteMiddleware/RedirectAuth.jsx'
 import EditArticle from "./Pages/Profile/EditArticle.jsx";
+import AllArticle from "./Pages/AllArticle.jsx";
+import ArticleDetail from "./Pages/ArticleDetail.jsx";
 const MainRouter = () => {
   useEffect(() => {}, []);
   return (
@@ -16,6 +18,8 @@ const MainRouter = () => {
       <AuthContextProvider>
       <Routes>
             <Route path='/' element={<Home />} />
+            <Route path='/articles' element={<AllArticle />} />
+            <Route path='/articles/:id' element={<ArticleDetail />} />
             <Route 
               path='/register' 
                 element={

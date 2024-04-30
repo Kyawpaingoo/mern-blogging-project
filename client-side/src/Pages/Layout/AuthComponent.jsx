@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { Link, redirect, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import AuthContext from "../../Context/AuthContext"
 import axios from "axios"
 
@@ -16,6 +16,8 @@ const AuthComponent = () => {
     }
   return (
     <div className="bg-card p-3">
+        <Link to='/' className="btn btn-primary">Home</Link>
+        <Link to='/articles' className="btn btn-primary">Articles</Link>
         {!authUser && (
             <>
             <Link to="/login" className="btn btn-primary">

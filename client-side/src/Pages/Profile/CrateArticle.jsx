@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import AuthContext from "../../Context/AuthContext"
 import Select from 'react-select'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -7,6 +9,7 @@ import {toast} from 'react-toastify';
 import PageLoader from '../../Components/PageLoader';
 
 const CrateArticle = ({ handleTabChange }) => {
+    const {authUser, setAuthUser} = useContext(AuthContext);
     const [tag, setTag] = useState([]);
     const [language, setLanguage] = useState([]);
     const [title, setTitle] = useState('');
@@ -36,6 +39,7 @@ const CrateArticle = ({ handleTabChange }) => {
          formdata.append('description',description);
          formdata.append('tags',JSON.stringify(tags));
          formdata.append('languages',JSON.stringify(languages));
+         formdata.append('author', authUser.name);
         
          await axios.post('/auth/article',formdata).then((d) =>{
            

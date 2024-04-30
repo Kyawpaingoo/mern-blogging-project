@@ -12,7 +12,7 @@ const MostLoveArticle = () => {
             })
         }
         getFetchData();
-    });
+    },[]);
   return (
    <>
         <div className="bg-card p-3 mt-4">

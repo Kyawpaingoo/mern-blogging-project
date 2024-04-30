@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import mongoosePaginte from 'mongoose-paginate-v2';
 
 const ArticleSchema = new mongoose.Schema({
     slug:{
@@ -6,6 +7,10 @@ const ArticleSchema = new mongoose.Schema({
         required: true
     },
     title:{
+        type: String,
+        required: true
+    },
+    author: {
         type: String,
         required: true
     },
@@ -44,5 +49,8 @@ const ArticleSchema = new mongoose.Schema({
         default: 0,
     }
 })
+
+ArticleSchema.index({title: 'text'});
+ArticleSchema.plugin(mongoosePaginte);
 
 export default mongoose.model('Articles', ArticleSchema); 

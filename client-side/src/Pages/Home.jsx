@@ -23,9 +23,9 @@ const Home = () => {
                 type="text"
                 className="form-control rounded bg-card"
                 />
-            </div>
-                {/* first blog */}
-            <div className="mt-4">
+        </div>
+        {/* first blog */}
+        <div className="mt-4">
                 <div className="d-flex rounded bg-card">
                 <img
                         style={{ width: 400 }}
@@ -64,7 +64,7 @@ const Home = () => {
             <div className="row p-0 m-0">
                 {
                     articles.map((article)=>(
-                        <Link to={`/article/${article._id}`} key={article._id} className="col-6  pl-0 mt-4">
+                        <Link to={`/articles/${article._id}`} key={article._id} className="col-6  pl-0 mt-4">
                             <div className="rounded bg-card">
                                 <img
                                     className="rounded"
