@@ -3,14 +3,25 @@ import Master from './Layout/Master'
 import axios from 'axios';
 import host from '../Data/Data.js';
 import { Link } from 'react-router-dom';
+import data from '../Data/Data.js';
 
 const Home = () => {
     const [articles, setArticles] = useState([]);
+    const [commentArticle, setCommentArticle] = useState({});
+    const [tag, setTag] = useState([]);
     useEffect(()=>{
             const getFetchData =  async()=>{
-                await axios.get('get-HomeArticle').then(d=>{
-                    setArticles(d.data);
-                });
+                const latestArticles = await axios.get('get-HomeArticle');
+                const mostCommentArticle = await axios.get('get-MostCommentArticle');
+
+                Promise.all([latestArticles, mostCommentArticle]).then((res)=>{
+                    const latestData = res[0].data;
+                    const commentData = res[1].data[0];
+                    setArticles(latestData);
+                    setCommentArticle(commentData);
+                    setTag(commentData.tags);
+                    //console.log(commentArticle);
+                })
             }
         getFetchData();
     },[]);
@@ -26,39 +37,61 @@ const Home = () => {
         </div>
         {/* first blog */}
         <div className="mt-4">
-                <div className="d-flex rounded bg-card">
+                <Link to={`/articles/${commentArticle._id}`} className="d-flex rounded bg-card">
                 <img
                         style={{ width: 400 }}
-                        src="https://toka.b-cdn.net/wp-content/uploads/2022/01/black-man-looking-stock-market-exchange-information-computer-crypto-currency.png"
+                        src={`${data.host}/images/${commentArticle.image}`}
                         className="rounded"
                 />
                 <div className="p-3">
-                    <b className="text-warning">Fullstack</b>
-                    <h3 className="text-white">What is MERN Fullstack App?</h3>
-                    <p>
-                        MERN Stackဆိုတာဘာလည်း ဘယ်လိုအလုပ်လုပ်တာလည်းအပြင် သူ့ကိုလေ့လာဖို့
-                        road map ပါ တစ်ခါတည်းရှင်းပြပေးသွားမှာဖြစ်ပါတယ်။ MERN
-                        Stackဆိုတာဘာလည်း ဘယ်လိုအလုပ်လုပ်တာလည်းအပြင် သူ့ကိုလေ့လာဖို့ road
-                        map ပါ တစ်ခါတည်းရှင်းပြပေးသွားမှာဖြစ်ပါတယ်။ MERN Stackဆိုတာဘာလည်း
-                        ဘယ်လိုအလုပ်လုပ်တာလည်းအပြင် သူ့ကိုလေ့လာဖို့ road map ပါ
-                        တစ်ခါတည်းရှင်းပြပေးသွားမှာဖြစ်ပါတယ်။
-                    </p>
+                    {
+                       tag.map((d, index) => (
+                        <span className='text-white' key={d._id}>
+                            {d.name}
+                             {index < commentArticle.tags.length - 1 && ', '}
+                        </span>
+                       ))
+                    }
+                    <h2 className="text-white">{commentArticle.title}</h2>
+                   {/* <div
+                   dangerouslySetInnerHTML={{__html: commentArticle.description}}></div> */}
                     <div className="d-flex justify-content-between">
                         <div>
-                            <a href="" className="text-muted">
-                            <i className="bx bx-user" />
-                            <small>Aung Aung</small>
+                            <div>
+                                <a className="text-muted">
+                                    <span className='fs-2'> 
+                                        <i className="fa-regular fa-user"></i> {commentArticle.view_count}
+                                    </span>
+                                </a>
+                            </div>
+                            <div className='py-2'>
+                                <a className="text-muted">
+                                    <span className='fs-2'>
+                                        <i className="fa-regular fa-thumbs-up"></i> {commentArticle.like_count}
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div className='py-2'>
+                            <a className="text-muted">
+                                <span className='fs-2'> 
+                                    <i className="fa-regular fa-message"></i> {commentArticle.comment_count}
+                                    
+                                </span>
                             </a>
                         </div>
+                        </div>
+                       
                         <div>
-                            <a href="" className="text-muted">
-                            <i className="bx bx-happy-heart-eyes" />
-                            <small>6785</small>
+                            <a className="text-muted">
+                                <span className='fs-2'> 
+                                    Author: {commentArticle.author}
+                                </span>
                             </a>
                         </div>
                     </div>
                 </div>
-            </div>
+            </Link>
         </div>
         <div className="mt-4 blog-list">
             <div className="row p-0 m-0">
@@ -100,8 +133,6 @@ const Home = () => {
                     )
                 )
                 }
-                
-                
             </div>
         </div>
     </Master>

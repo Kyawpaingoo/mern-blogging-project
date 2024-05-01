@@ -20,7 +20,7 @@ const MostLoveArticle = () => {
             <div className="row">
                 {
                     articles.map(article=>(   
-                        <Link to={`/article/${article._id}`} key={article._id} className="col-6">
+                        <Link to={`/articles/${article._id}`} key={article._id} className="col-6">
                             <div className="bg-dark rounded">
                             <img
                                 src={`${host.host}/images/${article.image}`}

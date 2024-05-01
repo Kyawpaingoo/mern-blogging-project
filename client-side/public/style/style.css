@@ -15,3 +15,17 @@ html {
 .bx {
   font-size: 20px;
 }
+
+.like-container:hover #heart-icon.fa-regular {
+  color: red !important; 
+  cursor: pointer;
+}
+
+.like-container #heart-icon.fa-solid {
+  color: red !important; 
+  cursor: pointer;
+}
+
+.like-container:hover #heart-icon.fa-regular::before {
+  content: "\f004";
+}

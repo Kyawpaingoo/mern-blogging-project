@@ -3,6 +3,7 @@ import LanguageModel from '../Models/LanguageModel.js';
 import ArticleModel from '../Models/ArticleModel.js';
 import { getSpecificData } from '../Helpers/getSpecificData.js';
 import { paginateResult } from '../Helpers/paginate.js';
+import ArticleCommentModel from '../Models/ArticleCommentModel.js';
 
 const DataController = {
     getTagLang: async(req, res)=>{
@@ -15,6 +16,12 @@ const DataController = {
         const latestArticle = await getSpecificData(ArticleModel, 4, '_id', -1);
         
         res.json(latestArticle);
+    },
+
+    getMostCommentArticle: async(req, res)=>{
+        const mostView =  await getSpecificData(ArticleModel, 1, 'comment_count', -1);
+        
+        res.json(mostView);
     },
     getTrendingArticle: async(req, res)=>{
         
@@ -52,7 +59,29 @@ const DataController = {
     getArticleDetail: async (req, res)=>{
         const id  = req.params.id;
         const article = await ArticleModel.findById(id);
-        res.json(article);
+        await ArticleModel.findByIdAndUpdate(id, {
+            $inc: {view_count: 1}
+        });
+        const comment = await ArticleCommentModel.find({
+            article: id
+        }).populate('user');
+        res.json({article, comment});
+    },
+
+    artileLike: async (req, res)=>{
+        const {article_id} = req.body;
+        await ArticleModel.findByIdAndUpdate(article_id, {
+            $inc:{like_count: 1},
+        });
+        res.json('success');
+    },
+
+    artileUnLike: async (req, res)=>{
+        const {article_id} = req.body;
+        await ArticleModel.findByIdAndUpdate(article_id, {
+            $inc:{like_count: -1},
+        });
+        res.json('success');
     }
 }
 
