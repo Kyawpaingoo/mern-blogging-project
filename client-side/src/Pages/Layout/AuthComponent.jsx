@@ -16,8 +16,7 @@ const AuthComponent = () => {
     }
   return (
     <div className="bg-card p-3">
-        <Link to='/' className="btn btn-primary">Home</Link>
-        <Link to='/articles' className="btn btn-primary">Articles</Link>
+        
         {!authUser && (
             <>
             <Link to="/login" className="btn btn-primary">
